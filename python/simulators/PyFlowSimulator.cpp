@@ -216,6 +216,7 @@ stepInit()
     }
     int exit_code = EXIT_SUCCESS;
     this->main_ebos_ = this->main_->initFlowEbosBlackoil(exit_code);
+    //this->main_ebos_ = this->main_->initFlowEbosEnergy(exit_code);
     if (this->main_ebos_) {
         int result = this->main_ebos_->executeInitStep();
         this->has_run_init_ = true;

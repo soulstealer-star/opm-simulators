@@ -137,7 +137,7 @@ PyEnergySimulator::
 run()
 {
     auto main_object = ::Opm::Main( this->deck_filename_ );
-    return main_object.runStatic<::Opm::Properties::TTag::EclEnergyProblemTPFA>();
+    return main_object.runStatic<::Opm::Properties::TTag::EclFlowEnergyProblem>();
     //return main_object.runDynamic();
 }
 

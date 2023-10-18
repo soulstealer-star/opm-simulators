@@ -166,7 +166,7 @@ public:
     }
 
     using FlowMainEbosType = FlowMainEbos<Properties::TTag::EclFlowProblemTPFA>;
-    using FlowMainEbosType2 = FlowMainEbos<Properties::TTag::EclEnergyProblemTPFA>;
+    using FlowMainEbosType2 = FlowMainEbos<Properties::TTag::EclFlowEnergyProblem>;
     // To be called from the Python interface code. Only do the
     // initialization and then return a pointer to the FlowEbosMain
     // object that can later be accessed directly from the Python interface

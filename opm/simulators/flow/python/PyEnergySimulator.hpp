@@ -20,7 +20,7 @@ namespace Opm::Pybind {
 class PyEnergySimulator
 {
 private:
-    using TypeTag = ::Opm::Properties::TTag::EclEnergyProblemTPFA;
+    using TypeTag = ::Opm::Properties::TTag::EclFlowEnergyProblem;
     using Simulator = ::Opm::GetPropType<TypeTag, ::Opm::Properties::Simulator>;
 
 public:

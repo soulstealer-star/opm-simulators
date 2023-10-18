@@ -18,19 +18,21 @@
 #define FLOW_EBOS_ENERGY_HPP
 
 #include <memory>
-#include <flow/flow_ebos_blackoil.hpp>
+//#include <flow/flow_ebos_blackoil.hpp>
 
 namespace Opm {
-    namespace Properties {
-        namespace TTag {
-
-            struct EclEnergyProblemTPFA {
-            using InheritsFrom = std::tuple<EclFlowProblem>;
-            };
-
-        }
-   }
+namespace Properties {
+namespace TTag {
+struct EclFlowEnergyProblem {
+    using InheritsFrom = std::tuple<EclFlowProblem>;
+};
 }
+
+// template<class TypeTag>
+// struct EnableEnergy<TypeTag, TTag::EclFlowEnergyProblem> {
+//     static constexpr bool value = true;
+// };
+}}
 
 
 
@@ -41,7 +43,7 @@ int flowEbosEnergyMain(int argc, char** argv, bool outputCout, bool outputFiles)
 
 template<class TypeTag> class FlowMainEbos;
 
-std::unique_ptr<FlowMainEbos<Properties::TTag::EclEnergyProblemTPFA>>
+std::unique_ptr<FlowMainEbos<Properties::TTag::EclFlowEnergyProblem>>
     flowEbosEnergyMainInit(int argc, char** argv, bool outputCout, bool outputFiles);
 
 //! \brief Main function used in flow_energy binary.

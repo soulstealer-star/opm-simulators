@@ -24,36 +24,37 @@
 #include <opm/simulators/flow/Main.hpp>
 
 
-#include <opm/models/blackoil/blackoillocalresidualtpfa.hh>
-#include <opm/models/discretization/common/tpfalinearizer.hh>
+//#include <opm/models/blackoil/blackoillocalresidualtpfa.hh>
+//#include <opm/models/discretization/common/tpfalinearizer.hh>
+
+
+// namespace Opm {
+//     namespace Properties {
+
+//         template<class TypeTag>
+//         struct Linearizer<TypeTag, TTag::EclEnergyProblemTPFA> { using type = TpfaLinearizer<TypeTag>; };
+
+//         template<class TypeTag>
+//         struct LocalResidual<TypeTag, TTag::EclEnergyProblemTPFA> { using type = BlackOilLocalResidualTPFA<TypeTag>; };
+
+//         template<class TypeTag>
+//         struct EnableDiffusion<TypeTag, TTag::EclEnergyProblemTPFA> { static constexpr bool value = false; };
+
+//     }
+// }
+
 
 
 namespace Opm {
-    namespace Properties {
 
-        template<class TypeTag>
-        struct Linearizer<TypeTag, TTag::EclEnergyProblemTPFA> { using type = TpfaLinearizer<TypeTag>; };
-
-        template<class TypeTag>
-        struct LocalResidual<TypeTag, TTag::EclEnergyProblemTPFA> { using type = BlackOilLocalResidualTPFA<TypeTag>; };
-
-        template<class TypeTag>
-        struct EnableDiffusion<TypeTag, TTag::EclEnergyProblemTPFA> { static constexpr bool value = false; };
-
-    }
-}
-
-
-namespace Opm {
-
-std::unique_ptr<FlowMainEbos<Properties::TTag::EclEnergyProblemTPFA>>
+std::unique_ptr<FlowMainEbos<Properties::TTag::EclFlowEnergyProblem>>
 flowEbosEnergyMainInit(int argc, char** argv, bool outputCout, bool outputFiles)
 {
     // we always want to use the default locale, and thus spare us the trouble
     // with incorrect locale settings.
     resetLocale();
 
-    return std::make_unique<FlowMainEbos<Properties::TTag::EclEnergyProblemTPFA>>(
+    return std::make_unique<FlowMainEbos<Properties::TTag::EclFlowEnergyProblem>>(
         argc, argv, outputCout, outputFiles);
 }
 
@@ -64,19 +65,21 @@ int flowEbosEnergyMain(int argc, char** argv, bool outputCout, bool outputFiles)
     // with incorrect locale settings.
     resetLocale();
 
-    FlowMainEbos<Properties::TTag::EclEnergyProblemTPFA>
+    FlowMainEbos<Properties::TTag::EclFlowEnergyProblem>
         mainfunc {argc, argv, outputCout, outputFiles};
     return mainfunc.execute();
 }
 
 int flowEbosEnergyMainStandalone(int argc, char** argv)
 {
-    using TypeTag = Properties::TTag::EclEnergyProblemTPFA;
-    auto mainObject = std::make_unique<Opm::Main>(argc, argv);
-    auto ret = mainObject->runStatic<TypeTag>();
-    // Destruct mainObject as the destructor calls MPI_Finalize!
-    mainObject.reset();
-    return ret;
+    using TypeTag = Properties::TTag::EclFlowEnergyProblem;
+    // auto mainObject = std::make_unique<Opm::Main>(argc, argv);
+    // auto ret = mainObject->runStatic<TypeTag>();
+    // // Destruct mainObject as the destructor calls MPI_Finalize!
+    // mainObject.reset();
+    // return ret;
+    auto mainObject = Opm::Main(argc, argv);
+    return mainObject.runStatic<TypeTag>();
 }
 
 }

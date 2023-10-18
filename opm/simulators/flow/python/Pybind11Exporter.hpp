@@ -13,6 +13,8 @@ namespace Opm::Pybind {
     void export_PyBlackOilSimulator(py::module& m);
     void export_PyFlowSimulator(py::module& m);
     void export_PyEnergySimulator(py::module& m);
+    void export_PyBlackOilSimulatorold(py::module& m);
+    //void export_PySimulator(py::module& m);
 }
 
 #endif //OPM_PYBIND11_EXPORTER_HEADER_INCLUDED
